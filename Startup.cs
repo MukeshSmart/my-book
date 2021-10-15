@@ -33,7 +33,10 @@ namespace my_book
             services.AddControllers();
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(ConnectionString));
             services.AddTransient<BookSevice>();
+            services.AddTransient<AuthorsService>();
+            services.AddTransient<PublishersService>();
         }
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -54,7 +57,7 @@ namespace my_book
                 endpoints.MapControllers();
             });
 
-            AppDbInitiater.Seed(app);
+            //AppDbInitiater.Seed(app);
         }
     }
 }

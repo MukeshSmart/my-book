@@ -25,7 +25,6 @@ namespace my_book.Data
                         DateRead = DateTime.Now.AddDays(-10),
                         Rate = 4,
                         Genre = "Biography",
-                        Author = "Mukesh Dubey",
                         CoverUrl = "https:www.google.com",
                         DateAdded = DateTime.Now
                     },
@@ -35,7 +34,6 @@ namespace my_book.Data
                         Description = "2st Book Description",
                         IsRead = false,
                         Genre = "Biography",
-                        Author = "Mukesh Dubey",
                         CoverUrl = "https:www.google.com",
                         DateAdded = DateTime.Now
                     }) ;

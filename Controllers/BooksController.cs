@@ -33,6 +33,13 @@ namespace my_book.Controllers
             return Ok(book);
         }
 
+        [HttpGet("get-book-author-by-id/{id}")]
+        public IActionResult GetBookAuthorById(int id)
+        {
+            var bookAuthor = _bookSevice.GetBookAuthorById(id);
+            return Ok(bookAuthor);
+        }
+
         [HttpPost("add-book")]
         public IActionResult AddBook([FromBody]BookVM book)
         {
