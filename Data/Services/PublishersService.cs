@@ -15,7 +15,7 @@ namespace my_book.Data.Services
             _context = context;
         }
 
-        public void AddPublisher(PublisherVM publisher)
+        public Publisher AddPublisher(PublisherVM publisher)
         {
             var _publisher = new Publisher()
             {
@@ -23,7 +23,35 @@ namespace my_book.Data.Services
             };
             _context.Publishers.Add(_publisher);
             _context.SaveChanges();
+
+            return _publisher;
         }
 
+        public PublisherWithBooksAndAuthorsVM GetPublisherData(int publisherId)
+        {
+            var _publisherData = _context.Publishers.Where(p => p.Id == publisherId)
+                .Select(x => new PublisherWithBooksAndAuthorsVM()
+                {
+                    Name = x.Name,
+                    BookAuthors = x.Books.Select(b => new PublisherBookAuthorVM()
+                    {
+                        BookName = b.Title,
+                        BookAuthors = b.Book_Authors.Select(ba => ba.Author.FullName).ToList()
+                    }).ToList()
+                }).FirstOrDefault();
+
+            return _publisherData;
+        }
+
+        public void DeletePublisherById(int id)
+        {
+            var publisher = _context.Publishers.FirstOrDefault(x => x.Id == id);
+
+            if(publisher != null)
+            {
+                _context.Publishers.Remove(publisher);
+                _context.SaveChanges();
+            }
+        }
     }
 }

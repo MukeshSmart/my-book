@@ -22,15 +22,21 @@ namespace my_book.Controllers
         [HttpPost("add-author")]
         public IActionResult AddAuthor([FromBody]AuthorVM author)
         {
-            _authorsService.AddAuthor(author);
-            return Ok();
+           var newAuthor = _authorsService.AddAuthor(author);
+            if (newAuthor != null)
+                return Created(nameof(AddAuthor), newAuthor);
+            else
+                return Ok("Not Created");
         }
 
         [HttpGet("get-author-books-by-id/{id}")]
         public IActionResult GetAuthorBooksById(int id)
         {
-            _authorsService.GetAuthorBooks(id);
-            return Ok();
+           var author = _authorsService.GetAuthorBooks(id);
+            if (author != null)
+                return Ok(author);
+            else
+                return NotFound();
         }
 
     }
