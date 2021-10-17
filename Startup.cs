@@ -36,6 +36,7 @@ namespace my_book
             services.AddTransient<BookSevice>();
             services.AddTransient<AuthorsService>();
             services.AddTransient<PublishersService>();
+            services.AddApiVersioning();
         }
 
 

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using my_book.Data.Services;
 using my_book.Data.ViewModels;
 using System;
@@ -14,9 +15,11 @@ namespace my_book.Controllers
     public class PublishersController : ControllerBase
     {
         private PublishersService _publishersService;
-        public PublishersController(PublishersService publishersService)
+        private readonly ILogger<PublishersController> _logger;
+        public PublishersController(PublishersService publishersService, ILogger<PublishersController> logger)
         {
             _publishersService = publishersService;
+            _logger = logger;
         }
 
         [HttpPost("add-publisher")]
@@ -29,6 +32,7 @@ namespace my_book.Controllers
         [HttpGet("get-publishers-book-with-authors-by-id/{id}")]
         public IActionResult GetPublishersData(int id)
         {
+            _logger.LogInformation("Get Publisher Data Called");
             var publisherDate = _publishersService.GetPublisherData(id);
 
             if (publisherDate != null)
